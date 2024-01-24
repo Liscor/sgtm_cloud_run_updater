@@ -68,17 +68,19 @@ functions.http('check_cloud_run', (req, res) => {
     image_manifest = image_manifest.manifest;
 
     let stable_image_key = null;
+    let stable_image_tags = null;
     for (const release in image_manifest) {
         if (Array.isArray(image_manifest[release].tag) && image_manifest[release].tag.includes('stable')) {
             stable_image_key = release.split(":")[1];
+            stable_image_tags = image_manifest[release].tag;
             break; 
         }
     }
 
-    console.log(`Stable GTM image sha: ${stable_image_key}`);
+    console.log(`Stable GTM image sha: ${stable_image_key} and tags ${stable_image_tags}`);
 
     if(stable_image_key != current_image_key) {
-        console.log(`Versions are different: Deploying a new revision to catch latest stable image: ${stable_image_key.split(":")[1]}`);
+        console.log(`Versions are different: Deploying a new revision to catch latest stable image: ${stable_image_key}`);
     
         const service = {
             "name": `projects/${params.project_id}/locations/${params.region}/services/${params.service_name}`,

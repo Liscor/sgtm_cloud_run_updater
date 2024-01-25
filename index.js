@@ -81,7 +81,7 @@ functions.http('check_cloud_run', (req, res) => {
 
     if(stable_image_key != current_image_key) {
         console.log(`Versions are different: Deploying a new revision to catch latest stable image: ${stable_image_key}`);
-    
+        console.log(active_revision);
         const service = {
             "name": `projects/${params.project_id}/locations/${params.region}/services/${params.service_name}`,
             "template":{
@@ -93,9 +93,13 @@ functions.http('check_cloud_run', (req, res) => {
                         "livenessProbe": active_revision.containers[0].livenessProbe,
                         "startupProbe": active_revision.containers[0].startupProbe,
                     }
-                ]
+                ],
+                scaling:{
+                    "minInstanceCount":active_revision.scaling.minInstanceCount,
+                    "maxInstanceCount":active_revision.scaling.maxInstanceCount
+                }
             }
-        };
+        }
 
         const revision_request = {
             service,
@@ -103,7 +107,8 @@ functions.http('check_cloud_run', (req, res) => {
   
         const [operation] = await service_client.updateService(revision_request);
         const [revision_response] = await operation.promise();
-      
+        console.log(revision_response);
+
         return res.status(200).json({
             "status":"updated successfully",
             "gtm-version": current_image_key,

@@ -97,8 +97,7 @@ functions.http('check_cloud_run', (req, res) => {
                 scaling:{
                     "minInstanceCount":active_revision.scaling.minInstanceCount,
                     "maxInstanceCount":active_revision.scaling.maxInstanceCount
-                },
-                "serviceAccount": active_revision.serviceAccount
+                }
             }
         }
 

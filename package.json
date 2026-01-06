@@ -1,6 +1,6 @@
 {
   "name": "sgtm_cloud_run_updater",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,8 +10,8 @@
   "author": "Moritz Bauer",
   "license": "ISC",
   "dependencies": {
-    "@google-cloud/functions-framework": "^3.3.0",
-    "@google-cloud/run": "^1.0.1",
-    "node-fetch": "^2.7.0"
+    "@google-cloud/functions-framework": "^5.0.0",
+    "@google-cloud/run": "^3.1.0",
+    "node-fetch": "^3.3.2"
   }
 }

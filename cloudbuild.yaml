@@ -8,9 +8,12 @@ steps:
   - --region=europe-west3
   - --source=.
   - --trigger-http
-  - --runtime=nodejs16
+  - --gen2
+  - --runtime=nodejs20
   - --entry-point=check_cloud_run
-  - --allow-unauthenticated
+  
+  # Remove the next comment for public access
+  #- --allow-unauthenticated
 
 #  - --service-account=cd-bigquery-to-firestore@artful-shelter-265814.iam.gserviceaccount.com
 # Dont forget to set cloud build permissions in gcp cloud console settings
